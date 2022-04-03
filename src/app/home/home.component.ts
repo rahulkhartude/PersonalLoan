@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
  
     setTimeout(()=>{ 
       this.disableButton=false;
-  }, 3000);  
+  }, 180000);  
   
 
 
@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
     this.disableButton=true;
     setTimeout(()=>{ 
       this.disableButton=false;
-  }, 3000);   
+  }, 180000);   
   }
 
   finishTest(){
