@@ -1,0 +1,122 @@
+<h1> Personal Loan</h1>
+<div class="ctr">
+<div class="card">
+  
+
+
+  <form [formGroup]="myForm" (ngSubmit)="allData()">
+    <div class="mb-3">
+      <label class="form-label"> <strong> Full Name</strong> </label>
+      <!-- class="form-control"    -->
+      <input type="text" [ngClass]="myForm.controls['fullName'].valid? 'form-control':'form-control is-invalid'"
+        id="exampleInputPassword1" formControlName="fullName">
+      <div *ngIf="myForm.controls['fullName'].touched && myForm.controls['fullName'].invalid">
+        <span *ngIf="myForm.controls['fullName'].hasError('required')">
+          <small class="err">First Name is required</small>
+        </span>
+        <span *ngIf="myForm.controls['fullName'].hasError('maxlength')">
+          <small class="err">First Name should be less then 140 character</small>
+        </span>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label"> <strong>Email address</strong></label>
+      <input type="email" [ngClass]="myForm.controls['email'].valid? 'form-control':'form-control is-invalid'"
+        id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="email">
+      <div *ngIf="myForm.controls['email'].touched && myForm.controls['email'].invalid">
+        <span *ngIf="myForm.controls['email'].hasError('required')">
+          <small class="err">email is required</small>
+        </span>
+        <span *ngIf="myForm.controls['email'].hasError('maxlength')">
+          <small class="err">email should be less then 255 character</small>
+        </span>
+        <span *ngIf="myForm.controls['email'].hasError('email')">
+          <small class="err">enter valid email</small>
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label"><strong>City</strong></label>
+      <input type="text" [ngClass]="myForm.controls['city'].valid? 'form-control':'form-control is-invalid'"
+        id="inputCity" formControlName="city">
+      <div *ngIf="myForm.controls['city'].touched && myForm.controls['city'].invalid">
+        <span *ngIf="myForm.controls['city'].hasError('required')">
+          <small class="err">city is required</small>
+        </span>
+
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="inputState" class="form-label"><strong>Pan Number</strong></label>
+      <input type="text" [ngClass]="myForm.controls['panNumber'].valid? 'form-control':'form-control is-invalid'"
+        id="pan" formControlName="panNumber" #trans (keyup)="toUpperCaseM(trans.value)" [(ngModel)]="toUpper">
+      <div *ngIf="myForm.controls['panNumber'].touched && myForm.controls['panNumber'].invalid">
+        <span *ngIf="myForm.controls['panNumber'].hasError('required')">
+          <small class="err">Pan Number is required</small>
+        </span>
+        <span *ngIf="myForm.controls['panNumber'].hasError('pattern')">
+          <small class="err">enter proper pattern: eg. ASCDE1452Q</small>
+        </span>
+
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label"> <strong>Mobile Number</strong></label>
+      <div class="input-group ">
+        <div style="display: flex; width: 100%;">
+          <span class="input-group-text" id="inputGroupPrepend">+91</span>
+          <input id='abc' type="number"
+            [ngClass]="myForm.controls['mobile'].valid? 'form-control':'form-control is-invalid'" id="mobile"
+            formControlName="mobile">
+        </div>
+        <div *ngIf="myForm.controls['mobile'].touched && myForm.controls['mobile'].invalid">
+          <span *ngIf="myForm.controls['mobile'].hasError('required')">
+            <small class="err">Mobile Number is required</small>
+          </span>
+          <span *ngIf="myForm.controls['mobile'].hasError('pattern')">
+            <small class="err">enter valid mobile number</small>
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="maxLimitofOTP<4 ; else elseBlock">
+      <div *ngIf="myForm.get('mobile').valid">
+        <div *ngIf="!statusOfRes">
+          <button type="submit" class="btn btn-secondary">Generate OTP</button>
+        </div>
+      </div>
+      <div *ngIf="statusOfRes">
+        <div *ngIf="myForm.get('mobile').valid">
+          <button style="margin-right: 20px; margin-bottom: 10px;" type="submit" *ngIf="!disableButton"
+            (click)="disalbeM();allData()" class="btn btn-warning">Resend OTP</button>
+          <span *ngIf="disableButton">
+            <button style="margin-right: 20px; margin-bottom: 10px;" type="submit" *ngIf="disableButton" disabled="true"
+              class="btn btn-warning">Resend OTP</button>
+            <countdown #cd [config]="{ leftTime: 3 }" (finished)="finishTest()"></countdown>
+          </span>
+        </div>
+
+      </div>
+
+      <div class="col-md-2 " *ngIf="statusOfRes;">
+        <input *ngIf="myForm.get('mobile').valid" type="text" class="form-control " id="otpVerify"
+          placeholder="enter the OTP">
+      </div>
+    </div>
+    <ng-template #elseBlock>
+      <span style="color: red;"> Please try again
+        after an hour. </span>
+        <countdown #cd [config]="{ leftTime: 10 }"    (event)="tryOneM($event)" ></countdown>
+    </ng-template>
+
+  </form>
+
+</div>
+</div>

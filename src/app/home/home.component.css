@@ -1,0 +1,20 @@
+.err{
+    color: red;
+   
+}
+.ctr{
+        margin-left:20% ;
+        margin-right: 20%;
+        float: none; 
+    }
+    h1{
+        margin-left: 35%;
+
+
+    }
+    #abc{
+        width: 100%;
+    }
+    form{
+        margin:35px
+    }
