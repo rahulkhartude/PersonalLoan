@@ -99,7 +99,7 @@
           <span *ngIf="disableButton">
             <button style="margin-right: 20px; margin-bottom: 10px;" type="submit" *ngIf="disableButton" disabled="true"
               class="btn btn-warning">Resend OTP</button>
-            <countdown #cd [config]="{ leftTime: 3 }" (finished)="finishTest()"></countdown>
+            <countdown #cd [config]="{ leftTime: 180000 }" (finished)="finishTest()"></countdown>
           </span>
         </div>
 
@@ -113,7 +113,7 @@
     <ng-template #elseBlock>
       <span style="color: red;"> Please try again
         after an hour. </span>
-        <countdown #cd [config]="{ leftTime: 10 }"    (event)="tryOneM($event)" ></countdown>
+        <countdown #cd [config]="{ leftTime: 3.6e+6 }"    (event)="tryOneM($event)" ></countdown>
     </ng-template>
 
   </form>
